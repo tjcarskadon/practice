@@ -1,18 +1,5 @@
-//where I left off - 
-// the iterator and check for stringification is working until it gets
-// to the null value inside an object.  So I wrote a swtich statement
-// as a function so that the current value can be checked for type 
-//without retyping all my swtich cases.
-//So next action should be to integrate that into the object for in 
-//once that is done I need to see if I can refactor other parts of the
-// function to use that typeChecker function instead of the if statements
-// i have already listed.  
-//the big open question right now is if nested objects will iterate correctly
-//That is going to be my biggest challenge I think.
-
-//notes 12-14
-//looks like there might be some issue inside the object that starts with foo.  Right no I seem to only be getting foo from that object and not getting the other
-//key value pairs.
+//completed but untested in the specRunner need to refactor for efficency,
+//not sure if I am handling the unstrifiable obj correctly 
 
 var results = [];
 
@@ -69,40 +56,41 @@ function logMe(obj) {
 
 			for (var k in curVal){
 
-				results.push(k.toString());
-
-				if(typeof curVal[k] === 'object'){
-					for (var x in curVal[k]) {
-
-						if(Array.isArray(curVal[k])) {
-							curVal[k][x] !== null ? results.push(curVal[k][x].toString()) : results.push('null');
-						} else {
-							results.push(x.toString());
-							if(typeof curVal[k][x] === 'object') {
-
-								var thisVal = curVal[k][x];
-								for (var y in thisVal) {
-
-									results.push(y.toString());
-									thisVal !== null ? results.push(thisVal.toString()) : results.push('null');
-								}
-							} else {
+				if(typeof curVal[k] === 'function' || typeof curVal[k] === 'undefined') {
+					return;
+				} else {
+					results.push(k.toString());
+	
+					if(typeof curVal[k] === 'object'){
+						for (var x in curVal[k]) {
+	
+							if(Array.isArray(curVal[k])) {
 								curVal[k][x] !== null ? results.push(curVal[k][x].toString()) : results.push('null');
+							} else {
+								results.push(x.toString());
+								if(typeof curVal[k][x] === 'object') {
+	
+									var thisVal = curVal[k][x];
+									for (var y in thisVal) {
+	
+										results.push(y.toString());
+										thisVal !== null ? results.push(thisVal.toString()) : results.push('null');
+									}
+								} else {
+									curVal[k][x] !== null ? results.push(curVal[k][x].toString()) : results.push('null');
+								}
 							}
 						}
+					} else {
+						// results.push(k.toString());
+						curVal[k] !== null ? results.push(curVal[k].toString()) : results.push('null');
 					}
-				} else {
-					// results.push(k.toString());
-					curVal[k] !== null ? results.push(curVal[k].toString()) : results.push('null');
 				}
-
 			}
 			logMe(obj);
 		}
-//more notes: I think I need to create sub functions that take in a value based on type and then push that value to the results array.  
-//the logic here is that I can check type on each 
 		
-//add check for type of function and undefined 
+
 	} else {
 
 		results.push(curVal.toString());
@@ -162,4 +150,12 @@ var simpleObj = [
   {"a":[],"c": {}, "b": true}
 ];
 
+unstringifiableValues = [
+  {
+    'functions': function(){},
+    'undefined': undefined
+  }
+];
+
 logMe(simpleObj);
+logMe(unstringifiableValues);
