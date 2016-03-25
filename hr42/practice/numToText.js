@@ -1,29 +1,29 @@
 function numToText(input) {
  
-var nums = ["zero","one","two","three","four","five","six","seven","eight","nine"];
-var result ="";
-var prevChar = "";
-var wasNum = false;
- function parse(str) {
-    var checkMe = str.slice(0,1);
-    str = str.slice(1,str.length);
-    
-    if(checkMe === '') {
-      return result;
-    }
+  var nums = ["zero","one","two","three","four","five","six","seven","eight","nine"];
+  var result ="";
+  var prevChar = "";
+  var wasNum = false;
 
-    if(checkMe.search(/\d/) !== -1) {
-        result+= nums[+checkMe];
+  var checkMe = input.slice(0,1);
+  input = input.slice(1,input.length);
+  
+  if(checkMe === '') {
+    return result;
+  }
 
-    } else {
-      result += checkMe;
-    }
-    
-    prevChar = checkMe;
-    parse(str);
+  if(checkMe.search(/\d/) !== -1) {
+      result+= nums[+checkMe];
+
+  } else {
+    result += checkMe;
+  }
+  
+  prevChar = checkMe;
+  numToText(input);
 
   }
-parse(input);
+
 return result;
 }
 
