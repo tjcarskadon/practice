@@ -18,7 +18,6 @@ function numToText(input,result) {
   } else {
     numToText(input, result);
   }
-
 }
-console.log(numToText("h3ll0"));
-console.log(numToText("1234567809"));
+console.log(numToText("h3ll0"));  //hthreellzero
+console.log(numToText("1234567809")); //onetwothreefourfivesixseveneightzeronine
