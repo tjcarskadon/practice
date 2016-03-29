@@ -13,10 +13,9 @@ function numToText(input,result) {
   }
     
   if(input === '') {
-    console.log(result);
     return result;
   } else {
-    numToText(input, result);
+    return numToText(input, result);
   }
 }
 console.log(numToText("h3ll0"));  //hthreellzero

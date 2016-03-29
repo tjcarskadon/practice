@@ -19,7 +19,6 @@ function binSearch(list,target,indexArray,flag) {
         //left off here, need to address how we are getting this index
         result = indexArray[1];
       }
-      console.log(result);
       return result;
     } else {
       return middleIndex;
@@ -32,7 +31,7 @@ function binSearch(list,target,indexArray,flag) {
       middleIndex++;
     }
     flag = "g";
-    binSearch(shortList,target, indexArray,flag);
+    return binSearch(shortList,target, indexArray,flag);
   } else {
     shortList = list.slice(0,middleIndex);
      if(indexArray.length === 0) {
@@ -43,7 +42,7 @@ function binSearch(list,target,indexArray,flag) {
       indexArray = indexArray.slice(indexArray.length - shortList.length);
     }
     flag = "l";
-    binSearch(shortList,target,indexArray,flag);
+    return binSearch(shortList,target,indexArray,flag);
   }
 }
 

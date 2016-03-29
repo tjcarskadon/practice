@@ -11,12 +11,11 @@ function nFib(num,fib) {
 
   //base case
   if(num === 1) {
-    console.log(fib[fibL-1]);
     return fib[fibL-1];
   }
 
   fib.push(fib[fibL-1] + fib[fibL-2]);
-  nFib(num-1,fib);
+  return nFib(num-1,fib);
 }
 
 
