@@ -2,24 +2,49 @@
 //do this is a binary recursive fashion.
 
 
-function binSearch(list,target) {
+function binSearch(list,target,indexArray,flag) {
   var result;
   var middleIndex = Math.round(list.length/2);
   var middleValue = list[middleIndex];
   var shortList = [];
+  var flag = flag || "";
+  indexArray = indexArray || [];
   
 
   if(target === middleValue) {
-    result = middleIndex;
-    return result;
+    if(indexArray.length > 0) {
+      if(flag === "g") {
+        result = indexArray[indexArray.length-1];
+      } else {
+        //left off here, need to address how we are getting this index
+        result = indexArray[1];
+      }
+      console.log(result);
+      return result;
+    } else {
+      return middleIndex;
+    }
   }
   if(target > middleValue) {
     shortList = list.slice(middleIndex);
-    binSearch(shortList,target);
+    for (var i =0; i<shortList.length;i++){
+      indexArray.push(middleIndex);
+      middleIndex++;
+    }
+    flag = "g";
+    binSearch(shortList,target, indexArray,flag);
   } else {
     shortList = list.slice(0,middleIndex);
-    binSearch(shortList,target);
+     if(indexArray.length === 0) {
+      for (var i = 0; i<shortList.length;i++){
+        indexArray.push(i);
+      }
+    } else {
+      indexArray = indexArray.slice(indexArray.length - shortList.length);
+    }
+    flag = "l";
+    binSearch(shortList,target,indexArray,flag);
   }
 }
 
-console.log(binSearch([1,2,3,4],4)); //3
+console.log(binSearch([1,2,3,4,5,6,7],4)); 
